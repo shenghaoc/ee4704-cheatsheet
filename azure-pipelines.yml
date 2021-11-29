@@ -1,0 +1,14 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+container: texlive/texlive:latest
+
+steps:
+- script: latexmk --output-directory=artifacts main
+  displayName: 'Compile'
+
+- publish: $(System.DefaultWorkingDirectory)/artifacts
+  artifact: compiled

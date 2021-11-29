@@ -28,6 +28,9 @@
 
 \documentclass[dvipdfmx,a4paper,10pt,landscape]{article}
 
+\usepackage{amsmath}
+\usepackage{stix2}
+
 \usepackage{multicol,multirow}
 \usepackage{ifthen}
 \usepackage[landscape]{geometry}
@@ -57,6 +60,9 @@
 \setcounter{secnumdepth}{0}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt plus 0.5ex}
+
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\rect}{rect}
 % -----------------------------------------------------------------------
 
 \begin{document}
@@ -68,6 +74,130 @@
     \Large{\textbf{EE4704 Cheat Sheet}} \\
 \end{center}
 \begin{multicols}{3}
+    \section{Fourier Transform (A)}
+    \subsection{Basics}
+    \subsubsection{Delta function}
+    1D:\\
+    \begin{gather*}
+        \delta(x)=
+        \begin{cases}
+            0      & x \neq 0 \\
+            \infty & x = 0
+        \end{cases} \\
+        f(x)\times\delta(x-a)=f(a)\delta(x-a) \\
+        \int_{-\infty}^{\infty}f(x)\delta(x-a)dx=f(a)
+    \end{gather*}
+    2D: \\
+    \begin{gather*}
+        \delta(x,y)=
+        \begin{cases}
+            0      & x,y \neq 0 \\
+            \infty & x,y = 0
+        \end{cases} \\
+        f(x,y)\delta(x-a,y-b)=f(a,b)\delta(x-a,y-b) \\
+        \iint_{-\infty}^{+\infty}f(x,y)\delta(x-a,y-b)dxdy=f(a,b)
+    \end{gather*}
+    \subsubsection{Rectangle function}
+    \begin{align*}
+        \rect(x)   & =
+        \begin{cases}
+            1 & |x|\leq\frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        \rect(x,y) & =
+        \begin{cases}
+            1 & |x|,|y|\leq\frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+    \subsubsection{Sinc function}
+    \begin{align*}
+        \sinc(x)   & =\frac{sin(\pi x)}{\pi x}                               \\
+        \sinc(x,y) & =\frac{sin(\pi x)}{\pi x}\times\frac{sin(\pi y)}{\pi y} \\
+                   & = \sinc(x)\sinc(y)
+    \end{align*}
+
+    \subsection{2D Fourier Transform}
+    \begin{equation*}
+        F(u,v)=\iint_{-\infty}^{+\infty}f(x,y)\exp[-j2\pi(ux+vy)]dxdy
+    \end{equation*}
+    Inverse:
+    \begin{equation*}
+        f(x,y)=\iint_{-\infty}^{+\infty}F(u,v)\exp[j2\pi(ux+vy)]dudv
+    \end{equation*}
+    Note
+    \begin{align*}
+        \exp[j2\pi(ux+vy)]  & =\cos[2\pi(ux+vy)]+j\sin[2\pi(ux+vy)] \\
+        \exp[-j2\pi(ux+vy)] & =\cos[2\pi(ux+vy)]-j\sin[2\pi(ux+vy)]
+    \end{align*}
+    In general, the Fourier transform is complex:
+    \begin{equation*}
+        F(u,v)\equiv F_R(u,v)+jF_I(u,v)\equiv|F(u,v)|\exp[j\phi(u,v)]
+    \end{equation*}
+    with real part $F_R(u,v)$ and an imaginary part $F_I(u,v)$:
+    \begin{center}
+        \begin{tabular} {lll}
+            Fourier spectrum: & $|F(u,v)|$  & $=[F_R^2(u,v)+F_I^2(u,v)]^{1/2}$ \\
+            Phase spectrum:   & $\phi(u,v)$ & $=\tan^{-1}[F_I(u,v)/F_R(u,v)]$  \\
+            Power spectrum:   & $P(u,v)$    & $=|F(u,v)|^2=R^2(u,v)+I^2(u,v)$
+        \end{tabular}
+    \end{center}
+    Useful transform pairs:
+    \begin{center}
+        \begin{tabular}{ll}
+            \hline
+            Signal                     & Fourier transform                          \\
+            \hline
+            1                          & $\delta(u,v)$                              \\
+            $\delta(x,y)$              & $1$                                        \\
+            $\rect(x,y)$               & $\sinc(u,v)$                               \\
+            $\sinc(x,y)$               & $\rect(u,v)$                               \\
+            $e^{j2\pi(x+y)}$           & $\delta(u-1,v-1)$                          \\
+            $e^{-(x^2+y^2)/2\sigma^2}$ & $2\pi\sigma^2e^{-2\pi^2\sigma^2(u^2+v^2)}$
+        \end{tabular}
+    \end{center}
+
+    \subsection{Properties of 2D Continuous Transformation}
+    \subsubsection{Linearity}
+    \begin{equation*}
+        \mathcal{F}\{af_1(x,y)+bf_2(x,y)\}=aF_1(u,v)+bF_2(u,v)
+    \end{equation*}
+    where $a$ and $b$ are constants.
+    \subsubsection{Conjugate Symmetry}
+    \begin{gather*}
+        \mathcal{F}\{f^*(x,y)\}=F^*(-u,-v) \\
+        |F(u,v)|=|F(-u,-v)|
+    \end{gather*}
+    where $^*$ denotes the complex conjugation of a variable,
+    and $|F(u,v)|$ is symmetrical about the origin.
+    \subsubsection{Translation}
+    \begin{gather*}
+        \mathcal{F}\{f(x-a,y-b)\}=F(u,v)\exp[-j2\pi(au+bv)] \\
+        |\mathcal{F}\{f(x-a,y-b)\}|=|\mathcal{F}\{f(x,y)\}|
+    \end{gather*}
+    a spatial shift does not affect the magnitude of the transform.
+    \subsubsection{Scaling}
+    \begin{equation*}
+        \mathcal{F}\{f(ax,by)\}=\frac{1}{|ab|}F(u/a,v/b)
+    \end{equation*}
+    \subsubsection{Parseval's Theorem}
+    \begin{equation*}
+        \iint_{-\infty}^{+\infty}|f(x,y)|^2dxdy=\iint_{-\infty}^{+\infty}|F(u,v)|^2 dudv
+    \end{equation*}
+    \subsubsection{Convolution}
+    \begin{gather*}
+        \mathcal{F}\{f(x,y)*h(x,y)\}=F(u,v)H(u,v)\\
+        \mathcal{F}\{f(x,y)h(x,y)\}=F(u,v)*H(u,v)
+    \end{gather*}
+    \subsubsection{Rotation}
+    \begin{equation*}
+        x=r\cos\theta\quad y=r\sin\theta\quad u=\omega\cos\phi\quad v=\omega\sin\phi
+    \end{equation*}
+    then $f(x,y)$ and $F(u,v)$ become $f(r,\theta)$ and $F(\omega,\phi)$ and
+    \begin{equation}
+        f(r,\theta+\theta_0) \iff F(\omega,\phi+\theta_0)
+    \end{equation}
+
 \end{multicols}
 
 \end{document}

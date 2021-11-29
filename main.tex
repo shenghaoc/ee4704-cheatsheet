@@ -336,6 +336,38 @@
         E\{\bar{g}(x,y)\}=f(x,y),\quad K\to\infty
     \end{gather*}
 
+    \section{Image Enhancement}
+    \subsection{Contrast Stretching}
+    \begin{equation*}
+        s_k=\begin{cases}
+            ar_k                & 0\leq r_k < r_a    \\
+            \beta(r_k-r_a)+s_a  & r_a \leq r_k < r_b \\
+            \gamma(r_k-r_b)+s_b & r_b \leq r_k < L-1
+        \end{cases}
+    \end{equation*}
+    \subsection{Digital Negative}
+    \begin{equation*}
+        s_k=(L-1)-r_k
+    \end{equation*}
+    \subsection{Intensity Level Slicing}
+    \subsection{Log Transformation}
+    \subsection{Histogram Equalization}
+    \subsection{Histogram Specification}
+    \begin{equation*}
+        z=G^{-1}(s)=G^{-1}[T(r)]
+    \end{equation*}
+    \subsection{Image Sharpening}
+    \subsubsection{Butterworth Filter}
+    \begin{equation*}
+        H(\omega)=\frac{1}{1+(\omega/\omega_0)^{2n}}
+    \end{equation*}
+    No sharp discontinuity, less ringing. Swap $\omega$ and $\omega_0$ for high-pass.
+
+    \subsection{Gaussian Filtering}
+    \begin{gather*}
+        H(u,v)=e^{-\omega^2/2\sigma^2}=e^{-\ln 2(\omega/\omega_0)^2}\quad\text{low}
+    \end{gather*}
+
 \end{multicols}
 
 \end{document}

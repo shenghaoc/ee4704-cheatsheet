@@ -74,6 +74,11 @@
     \Large{\textbf{EE4704 Cheat Sheet}} \\
 \end{center}
 \begin{multicols}{3}
+    \setlength{\premulticols}{1pt}
+    \setlength{\postmulticols}{1pt}
+    \setlength{\multicolsep}{1pt}
+    \setlength{\columnsep}{2pt}
+
     \section{Fourier Transform}
     \subsection{Basics}
     \subsubsection{Delta function}
@@ -252,6 +257,84 @@
         u_s\geq2U
     \end{equation*}
     otherwise, there is aliasing, leading to artifacts in sampled signal.
+
+    \section{Noise Reduction}
+    \subsection{Mean Filtering}
+    Variations in the mask:
+    \begin{equation*}
+        \frac{1}{9}
+        \begin{bmatrix}
+            1 & 1 & 1 \\
+            1 & 1 & 1 \\
+            1 & 1 & 1
+        \end{bmatrix}
+        \quad
+        \frac{1}{10}
+        \begin{bmatrix}
+            1 & 1 & 1 \\
+            1 & 2 & 1 \\
+            1 & 1 & 1
+        \end{bmatrix}
+        \quad
+        \frac{1}{16}
+        \begin{bmatrix}
+            1 & 2 & 1 \\
+            2 & 4 & 2 \\
+            1 & 2 & 1
+        \end{bmatrix}
+    \end{equation*}
+    Causes blurring, is equivalent to low-pass filtering.
+    Gaussian mask:
+    \begin{equation*}
+        h(x,y)=\exp\left[-\frac{(x^2+y^2)}{2\sigma^2}\right]
+    \end{equation*}
+    \subsection{Median Filtering}
+    Requires $3(N^2-1)/8$ comparisons with bubble sort to find $(N+1)/2$ largest value.
+    \subsubsection{Properties}
+    \begin{itemize}
+        \item Good at removing outlier noise.
+        \item Different window shapes and sizes may be used.
+        \item The shape chosen for the window may affect the processing results.
+        \item Reduces the variance of the intensities in the image.
+        \item No new gray values are generated.
+        \item In general, the median filter tends to preserve edges while removing noise effectively.
+    \end{itemize}
+
+    \subsection{Spatial Filtering From Order Statistics}
+    \subsubsection{Midpoint Filter}
+    \begin{equation*}
+        \text{output}=\frac{z_1+z_N}{2}
+    \end{equation*}
+    should not be used with images that contain outlier noise such as salt-and-pepper noise.
+    \subsubsection{Maximum and minimum filters}
+    Minimum:
+    \begin{equation*}
+        \text{output}=z_1
+    \end{equation*}
+    If an image contains only salt noise, then the minimum filter removes this noise.
+    Maximum:
+    \begin{equation*}
+        \text{output}=z_N
+    \end{equation*}
+    It is effective in smoothing an image containing only pepper noise. Both are biased.
+    \subsection{Alpha-Trimmed Mean Filter}
+    Mixture of the mean and median filters, reasonably well for Gaussian and outlier.
+    \begin{equation*}
+        \text{output}=\frac{1}{N-2p}\sum_{i=p+1}{N-p}z_i
+    \end{equation*}
+    where
+    \begin{equation*}
+        p=0,1,2,3,\ldots,\frac{N-1}{2}\quad\text{N odd}
+    \end{equation*}
+    $p=0$: mean, other median.\\
+    Both outlier and Gaussian: $p\neq0$ removes outlier in calculation of mean, less blurring than mean filter.\\
+    \subsection{Image Averaging}
+    Consider noise uncorrelated over time and has mean value equal to zero.
+    \begin{gather*}
+        g(x,y)=f(x,y)+\eta(x,y)\\
+        \bar{g}(x,y)=f(x,y)+\frac{1}{K}\sum_{t=1}^K \eta_t(x,y)\\
+        E\{\bar{g}(x,y)\}=f(x,y),\quad K\to\infty
+    \end{gather*}
 
 \end{multicols}
 

@@ -74,10 +74,10 @@
     \Large{\textbf{EE4704 Cheat Sheet}} \\
 \end{center}
 \begin{multicols}{3}
-    \section{Fourier Transform (A)}
+    \section{Fourier Transform}
     \subsection{Basics}
     \subsubsection{Delta function}
-    1D:\\
+    1D:
     \begin{gather*}
         \delta(x)=
         \begin{cases}
@@ -87,7 +87,7 @@
         f(x)\times\delta(x-a)=f(a)\delta(x-a) \\
         \int_{-\infty}^{\infty}f(x)\delta(x-a)dx=f(a)
     \end{gather*}
-    2D: \\
+    2D:
     \begin{gather*}
         \delta(x,y)=
         \begin{cases}
@@ -194,9 +194,64 @@
         x=r\cos\theta\quad y=r\sin\theta\quad u=\omega\cos\phi\quad v=\omega\sin\phi
     \end{equation*}
     then $f(x,y)$ and $F(u,v)$ become $f(r,\theta)$ and $F(\omega,\phi)$ and
-    \begin{equation}
+    \begin{equation*}
         f(r,\theta+\theta_0) \iff F(\omega,\phi+\theta_0)
-    \end{equation}
+    \end{equation*}
+
+    \subsection{Discrete Fourier Transform}
+    The discrete Fourier transform (DFT) pair is given by
+    \begin{align*}
+        F(u) & = \frac{1}{N}\sum_{x=0}^{N-1}f(x)\exp[-j2\pi ux/N];\quad u=0,1,2,\ldots,N-1 \\
+        f(x) & = \sum_{u=0}^{N-1}F(u)\exp[j2\pi ux/N];\quad x=0,1,2,\ldots,N-1
+    \end{align*}
+    In the 2D case, the DFT pair is
+    \begin{align*}
+        F(u,v)  = \frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi (ux/M+vy/N)]; \\
+        u=0,1,2,\ldots,M-1,\ v=0,1,2,\ldots,N-1                                               \\                                          \\
+        f(x,y)  = \sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)\exp[j2\pi (ux/M+vy/N)];              \\
+        x=0,1,2,\ldots,M-1, y=0,1,2,\ldots,N-1
+    \end{align*}
+    \subsubsection{Time Complexity}
+    \begin{center}
+        \begin{tabular}{ll}
+            Direct DFT: & $M^2N^2$       \\
+            FFT:        & $MN\log_2(MN)$
+        \end{tabular}
+    \end{center}
+    \subsection{Some Properties of the 2D DFT}
+    \subsubsection{Separability}
+    \begin{gather*}
+        F(u,v) = \frac{1}{M}\sum_{x=0}^{N-1}F_r(x,v)\exp[-j2\pi ux/M] \\
+        F_r(x,v)=\frac{1}{N}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi vy/N]
+    \end{gather*}
+    \subsubsection{Average Value}
+    \begin{gather*}
+        \bar{f}(x,y)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y) \\
+        \bar{f}(x,y)=F(0,0)
+    \end{gather*}
+    \subsubsection{Translation}
+    Same as continuous.
+    \subsubsection{Conjugate Symmetry and Periodicity}
+    \begin{gather*}
+        F(u)=F(u+kN)\quad k=0,\pm1,\pm2,\ldots \\
+        f(x)=f(x+kN)\quad k=0,\pm1,\pm2,\ldots \\
+        F(u) = F^*(-u) = F^*(-u+N)
+    \end{gather*}
+    \subsubsection{Centering}
+    \begin{equation*}
+        f'(x,y)=f(x,y)(-1)^{x+y}
+    \end{equation*}
+
+    \subsection{Image Sampling}
+    \begin{gather*}
+        F_s(u,v)=\frac{1}{\Delta x \Delta y}\sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}F(u-mu_s,v-nv_s) \\
+        F_s(u)=\sum_{m=-\infty}^{\infty}F(u-mu_s)
+    \end{gather*}
+    \subsubsection{Nyquist Sampling Theorem}
+    \begin{equation*}
+        u_s\geq2U
+    \end{equation*}
+    otherwise, there is aliasing, leading to artifacts in sampled signal.
 
 \end{multicols}
 

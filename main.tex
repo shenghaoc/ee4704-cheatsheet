@@ -81,65 +81,66 @@
     \setlength{\columnsep}{2pt}
 
     \section{Fourier Transform}
-    \subsection{Basics}
-    \subsubsection{Delta function}
+    Delta function:
     1D:
-    \begin{gather*}
+    \begin{equation*}
         \delta(x)=
         \begin{cases}
             0      & x \neq 0 \\
             \infty & x = 0
-        \end{cases} \\
-        f(x)\times\delta(x-a)=f(a)\delta(x-a) \\
-        \int_{-\infty}^{\infty}f(x)\delta(x-a)dx=f(a)
-    \end{gather*}
+        \end{cases}
+    \end{equation*}
+    $f(x)\times\delta(x-a)=f(a)\delta(x-a)$ \\
+    $\int_{-\infty}^{\infty}f(x)\delta(x-a)dx=f(a)$
     2D:
-    \begin{gather*}
+    \begin{equation*}
         \delta(x,y)=
         \begin{cases}
             0      & x,y \neq 0 \\
             \infty & x,y = 0
-        \end{cases} \\
-        f(x,y)\delta(x-a,y-b)=f(a,b)\delta(x-a,y-b) \\
-        \iint_{-\infty}^{+\infty}f(x,y)\delta(x-a,y-b)dxdy=f(a,b)
-    \end{gather*}
-    \subsubsection{Rectangle function}
-    \begin{align*}
-        \rect(x)   & =
+        \end{cases}
+    \end{equation*}
+    $    f(x,y)\delta(x-a,y-b)=f(a,b)\delta(x-a,y-b)$ \\
+    $\iint_{-\infty}^{+\infty}f(x,y)\delta(x-a,y-b)dxdy=f(a,b)
+    $
+    Rectangle function:
+    \begin{equation*}
+        \rect(x)   =
         \begin{cases}
             1 & |x|\leq\frac{1}{2} \\
             0 & \text{otherwise}
-        \end{cases} \\
-        \rect(x,y) & =
+        \end{cases}
+    \end{equation*}
+    \begin{equation*}
+        \rect(x,y) =
         \begin{cases}
             1 & |x|,|y|\leq\frac{1}{2} \\
             0 & \text{otherwise}
         \end{cases}
-    \end{align*}
-    \subsubsection{Sinc function}
-    \begin{align*}
-        \sinc(x)   & =\frac{sin(\pi x)}{\pi x}                               \\
-        \sinc(x,y) & =\frac{sin(\pi x)}{\pi x}\times\frac{sin(\pi y)}{\pi y} \\
-                   & = \sinc(x)\sinc(y)
-    \end{align*}
+    \end{equation*}
+    Sinc function:
+    $
+        \sinc(x)    =\frac{sin(\pi x)}{\pi x}     $                          \\
+    $\sinc(x,y)  = \sinc(x)\sinc(y)
+    $
 
     \subsection{2D Fourier Transform}
-    \begin{equation*}
+    $
         F(u,v)=\iint_{-\infty}^{+\infty}f(x,y)\exp[-j2\pi(ux+vy)]dxdy
-    \end{equation*}
+    $\\
     Inverse:
-    \begin{equation*}
+    $
         f(x,y)=\iint_{-\infty}^{+\infty}F(u,v)\exp[j2\pi(ux+vy)]dudv
-    \end{equation*}
+    $\\
     Note
-    \begin{align*}
-        \exp[j2\pi(ux+vy)]  & =\cos[2\pi(ux+vy)]+j\sin[2\pi(ux+vy)] \\
-        \exp[-j2\pi(ux+vy)] & =\cos[2\pi(ux+vy)]-j\sin[2\pi(ux+vy)]
-    \end{align*}
+    $
+        \exp[j2\pi(ux+vy)]   =\cos[2\pi(ux+vy)]+j\sin[2\pi(ux+vy)]    $\\
+    $  \exp[-j2\pi(ux+vy)]  =\cos[2\pi(ux+vy)]-j\sin[2\pi(ux+vy)]
+    $\\
     In general, the Fourier transform is complex:
-    \begin{equation*}
+    $
         F(u,v)\equiv F_R(u,v)+jF_I(u,v)\equiv|F(u,v)|\exp[j\phi(u,v)]
-    \end{equation*}
+    $
     with real part $F_R(u,v)$ and an imaginary part $F_I(u,v)$:
     \begin{center}
         \begin{tabular} {lll}
@@ -164,105 +165,96 @@
     \end{center}
 
     \subsection{Properties of 2D Continuous Transformation}
-    \subsubsection{Linearity}
-    \begin{equation*}
+    Linearity:
+    $
         \mathcal{F}\{af_1(x,y)+bf_2(x,y)\}=aF_1(u,v)+bF_2(u,v)
-    \end{equation*}
-    where $a$ and $b$ are constants.
-    \subsubsection{Conjugate Symmetry}
-    \begin{gather*}
-        \mathcal{F}\{f^*(x,y)\}=F^*(-u,-v) \\
-        |F(u,v)|=|F(-u,-v)|
-    \end{gather*}
+    $
+    where $a$ and $b$ are constants.\\
+    Conjugate Symmetry:
+    $
+        \mathcal{F}\{f^*(x,y)\}=F^*(-u,-v) $\\
+    $|F(u,v)|=|F(-u,-v)|
+    $
     where $^*$ denotes the complex conjugation of a variable,
-    and $|F(u,v)|$ is symmetrical about the origin.
-    \subsubsection{Translation}
-    \begin{gather*}
-        \mathcal{F}\{f(x-a,y-b)\}=F(u,v)\exp[-j2\pi(au+bv)] \\
-        |\mathcal{F}\{f(x-a,y-b)\}|=|\mathcal{F}\{f(x,y)\}|
-    \end{gather*}
-    a spatial shift does not affect the magnitude of the transform.
-    \subsubsection{Scaling}
-    \begin{equation*}
+    and $|F(u,v)|$ is symmetrical about the origin.\\
+    Translation:
+    $
+        \mathcal{F}\{f(x-a,y-b)\}=F(u,v)\exp[-j2\pi(au+bv)]$ \\
+    $  |\mathcal{F}\{f(x-a,y-b)\}|=|\mathcal{F}\{f(x,y)\}|
+    $
+    a spatial shift does not affect the magnitude of the transform.\\
+    Scaling:
+    $
         \mathcal{F}\{f(ax,by)\}=\frac{1}{|ab|}F(u/a,v/b)
-    \end{equation*}
-    \subsubsection{Parseval's Theorem}
-    \begin{equation*}
+    $\\
+    Parseval's Theorem:
+    $
         \iint_{-\infty}^{+\infty}|f(x,y)|^2dxdy=\iint_{-\infty}^{+\infty}|F(u,v)|^2 dudv
-    \end{equation*}
-    \subsubsection{Convolution}
-    \begin{gather*}
-        \mathcal{F}\{f(x,y)*h(x,y)\}=F(u,v)H(u,v)\\
-        \mathcal{F}\{f(x,y)h(x,y)\}=F(u,v)*H(u,v)
-    \end{gather*}
-    \subsubsection{Rotation}
-    \begin{equation*}
+    $
+    Convolution:
+    $
+        \mathcal{F}\{f(x,y)*h(x,y)\}=F(u,v)H(u,v)$\\
+    $\mathcal{F}\{f(x,y)h(x,y)\}=F(u,v)*H(u,v)
+    $\\
+    Rotation:
+    $
         x=r\cos\theta\quad y=r\sin\theta\quad u=\omega\cos\phi\quad v=\omega\sin\phi
-    \end{equation*}
+    $
     then $f(x,y)$ and $F(u,v)$ become $f(r,\theta)$ and $F(\omega,\phi)$ and
-    \begin{equation*}
+    $
         f(r,\theta+\theta_0) \iff F(\omega,\phi+\theta_0)
-    \end{equation*}
-
+    $
     \subsection{Discrete Fourier Transform}
     The discrete Fourier transform (DFT) pair is given by
-    \begin{align*}
-        F(u) & = \frac{1}{N}\sum_{x=0}^{N-1}f(x)\exp[-j2\pi ux/N];\quad u=0,1,2,\ldots,N-1 \\
-        f(x) & = \sum_{u=0}^{N-1}F(u)\exp[j2\pi ux/N];\quad x=0,1,2,\ldots,N-1
-    \end{align*}
+    $F(u)  = \frac{1}{N}\sum_{x=0}^{N-1}f(x)\exp[-j2\pi ux/N];\quad u=0,1,2,\ldots,N-1$ \\
+    $f(x)  = \sum_{u=0}^{N-1}F(u)\exp[j2\pi ux/N];\quad x=0,1,2,\ldots,N-1    $
     In the 2D case, the DFT pair is
-    \begin{align*}
-        F(u,v)  = \frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi (ux/M+vy/N)]; \\
-        u=0,1,2,\ldots,M-1,\ v=0,1,2,\ldots,N-1                                               \\                                          \\
-        f(x,y)  = \sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)\exp[j2\pi (ux/M+vy/N)];              \\
-        x=0,1,2,\ldots,M-1, y=0,1,2,\ldots,N-1
-    \end{align*}
-    \subsubsection{Time Complexity}
-    \begin{center}
-        \begin{tabular}{ll}
-            Direct DFT: & $M^2N^2$       \\
-            FFT:        & $MN\log_2(MN)$
-        \end{tabular}
-    \end{center}
+    $  F(u,v)  = \frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi (ux/M+vy/N)];$ \\
+    $u=0,1,2,\ldots,M-1,\ v=0,1,2,\ldots,N-1        $    \\
+    $f(x,y)  = \sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)\exp[j2\pi (ux/M+vy/N)];   $    \\
+    $x=0,1,2,\ldots,M-1, y=0,1,2,\ldots,N-1$
+
+    Time Complexity:
+    Direct DFT:  $M^2N^2$     ,
+    FFT:         $MN\log_2(MN)$
     \subsection{Some Properties of the 2D DFT}
-    \subsubsection{Separability}
-    \begin{gather*}
-        F(u,v) = \frac{1}{M}\sum_{x=0}^{N-1}F_r(x,v)\exp[-j2\pi ux/M] \\
-        F_r(x,v)=\frac{1}{N}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi vy/N]
-    \end{gather*}
-    \subsubsection{Average Value}
-    \begin{gather*}
-        \bar{f}(x,y)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y) \\
-        \bar{f}(x,y)=F(0,0)
-    \end{gather*}
-    \subsubsection{Translation}
-    Same as continuous.
-    \subsubsection{Conjugate Symmetry and Periodicity}
-    \begin{gather*}
-        F(u)=F(u+kN)\quad k=0,\pm1,\pm2,\ldots \\
-        f(x)=f(x+kN)\quad k=0,\pm1,\pm2,\ldots \\
-        F(u) = F^*(-u) = F^*(-u+N)
-    \end{gather*}
-    \subsubsection{Centering}
-    \begin{equation*}
+    Separability:
+    $
+        F(u,v) = \frac{1}{M}\sum_{x=0}^{N-1}F_r(x,v)\exp[-j2\pi ux/M]$ \\
+    $F_r(x,v)=\frac{1}{N}\sum_{y=0}^{N-1}f(x,y)\exp[-j2\pi vy/N]
+    $\\
+    Average Value:
+    $
+        \bar{f}(x,y)=\frac{1}{MN}\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y) $\\
+    $\bar{f}(x,y)=F(0,0)$\\
+    Translation:
+    Same as continuous.\\
+    Conjugate Symmetry and Periodicity:
+    $
+        F(u)=F(u+kN)\quad k=0,\pm1,\pm2,\ldots $\\
+    $f(x)=f(x+kN)\quad k=0,\pm1,\pm2,\ldots $\\
+    $F(u) = F^*(-u) = F^*(-u+N)
+    $\\
+    Centering:
+    $
         f'(x,y)=f(x,y)(-1)^{x+y}
-    \end{equation*}
+    $
 
     \subsection{Image Sampling}
-    \begin{gather*}
-        F_s(u,v)=\frac{1}{\Delta x \Delta y}\sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}F(u-mu_s,v-nv_s) \\
-        F_s(u)=\sum_{m=-\infty}^{\infty}F(u-mu_s)
-    \end{gather*}
-    \subsubsection{Nyquist Sampling Theorem}
-    \begin{equation*}
+    $
+        F_s(u,v)=\frac{1}{\Delta x \Delta y}\sum_{m=-\infty}^{\infty}\sum_{n=-\infty}^{\infty}F(u-mu_s,v-nv_s) $\\
+    $ F_s(u)=\sum_{m=-\infty}^{\infty}F(u-mu_s)
+    $
+    Nyquist Sampling Theorem:
+    $
         u_s\geq2U
-    \end{equation*}
+    $
     otherwise, there is aliasing, leading to artifacts in sampled signal.
 
     \section{Noise Reduction}
     \subsection{Mean Filtering}
     Variations in the mask:
-    \begin{equation*}
+    $
         \frac{1}{9}
         \begin{bmatrix}
             1 & 1 & 1 \\
@@ -283,62 +275,59 @@
             2 & 4 & 2 \\
             1 & 2 & 1
         \end{bmatrix}
-    \end{equation*}
+    $
     Causes blurring, is equivalent to low-pass filtering.
     Gaussian mask:
-    \begin{equation*}
+    $
         h(x,y)=\exp\left[-\frac{(x^2+y^2)}{2\sigma^2}\right]
-    \end{equation*}
+    $
     \subsection{Median Filtering}
     Requires $3(N^2-1)/8$ comparisons with bubble sort to find $(N+1)/2$ largest value.
     \subsubsection{Properties}
-    \begin{itemize}
-        \item Good at removing outlier noise.
-        \item Different window shapes and sizes may be used.
-        \item The shape chosen for the window may affect the processing results.
-        \item Reduces the variance of the intensities in the image.
-        \item No new gray values are generated.
-        \item In general, the median filter tends to preserve edges while removing noise effectively.
-    \end{itemize}
+    Good at removing outlier noise;
+    Different window shapes and sizes may be used;
+    The shape chosen for the window may affect the processing results;
+    Reduces the variance of the intensities in the image;
+    No new gray values are generated;
+    In general, the median filter tends to preserve edges while removing noise effectively;
 
     \subsection{Spatial Filtering From Order Statistics}
-    \subsubsection{Midpoint Filter}
-    \begin{equation*}
+    Midpoint Filter:
+    $
         \text{output}=\frac{z_1+z_N}{2}
-    \end{equation*}
-    should not be used with images that contain outlier noise such as salt-and-pepper noise.
-    \subsubsection{Maximum and minimum filters}
+    $
+    should not be used with images that contain outlier noise such as salt-and-pepper noise.\\
+    Maximum and minimum filters:
     Minimum:
-    \begin{equation*}
+    $
         \text{output}=z_1
-    \end{equation*}
+    $
     If an image contains only salt noise, then the minimum filter removes this noise.
     Maximum:
-    \begin{equation*}
+    $
         \text{output}=z_N
-    \end{equation*}
-    It is effective in smoothing an image containing only pepper noise. Both are biased.
-    \subsection{Alpha-Trimmed Mean Filter}
+    $
+    It is effective in smoothing an image containing only pepper noise. Both are biased.\\
+    Alpha-Trimmed Mean Filter:
     Mixture of the mean and median filters, reasonably well for Gaussian and outlier.
-    \begin{equation*}
+    $
         \text{output}=\frac{1}{N-2p}\sum_{i=p+1}{N-p}z_i
-    \end{equation*}
+    $
     where
-    \begin{equation*}
+    $
         p=0,1,2,3,\ldots,\frac{N-1}{2}\quad\text{N odd}
-    \end{equation*}
+    $,
     $p=0$: mean, other median.\\
     Both outlier and Gaussian: $p\neq0$ removes outlier in calculation of mean, less blurring than mean filter.\\
     \subsection{Image Averaging}
     Consider noise uncorrelated over time and has mean value equal to zero.
-    \begin{gather*}
-        g(x,y)=f(x,y)+\eta(x,y)\\
-        \bar{g}(x,y)=f(x,y)+\frac{1}{K}\sum_{t=1}^K \eta_t(x,y)\\
-        E\{\bar{g}(x,y)\}=f(x,y),\quad K\to\infty
-    \end{gather*}
+    $
+        g(x,y)=f(x,y)+\eta(x,y)$\\
+    $\bar{g}(x,y)=f(x,y)+\frac{1}{K}\sum_{t=1}^K \eta_t(x,y)$\\
+    $E\{\bar{g}(x,y)\}=f(x,y),\quad K\to\infty$
 
     \section{Image Enhancement}
-    \subsection{Contrast Stretching}
+    Contrast Stretching:
     \begin{equation*}
         s_k=\begin{cases}
             ar_k                & 0\leq r_k < r_a    \\
@@ -346,32 +335,32 @@
             \gamma(r_k-r_b)+s_b & r_b \leq r_k < L-1
         \end{cases}
     \end{equation*}
-    \subsection{Digital Negative}
-    \begin{equation*}
+    Digital Negative:
+    $
         s_k=(L-1)-r_k
-    \end{equation*}
-    \subsection{Intensity Level Slicing}
-    \subsection{Log Transformation}
-    \subsection{Histogram Equalization}
-    \subsection{Histogram Specification}
-    \begin{equation*}
+    $
+    Intensity Level Slicing\\
+    Log Transformation\\
+    Histogram Equalization\\
+    Histogram Specification
+    $
         z=G^{-1}(s)=G^{-1}[T(r)]
-    \end{equation*}
+    $
     \subsection{Image Sharpening}
     \subsubsection{Butterworth Filter}
-    \begin{equation*}
+    $
         H(\omega)=\frac{1}{1+(\omega/\omega_0)^{2n}}
-    \end{equation*}
+    $
     No sharp discontinuity, less ringing. Swap $\omega$ and $\omega_0$ for high-pass.
 
     \subsection{Gaussian Filtering}
-    \begin{gather*}
+    $
         H(u,v)=e^{-\omega^2/2\sigma^2}=e^{-\ln 2(\omega/\omega_0)^2}\quad\text{low}
-    \end{gather*}
+    $
 
     \section{Edge Detection}
     \subsection{Gradient Operators}
-    \begin{equation*}
+    $
         \mathbf{G}(x,y)=
         \begin{bmatrix}
             \partial f(x,y)/\partial x \\
@@ -381,86 +370,86 @@
             G_x \\
             G_y
         \end{bmatrix}
-    \end{equation*}
+    $
     corrsponding to mask operations
-    \begin{gather*}
-        \begin{bmatrix}
-            -1 & 1
-        \end{bmatrix}
-        \quad\text{and}\quad
-        \begin{bmatrix}
-            1 \\
-            -1
-        \end{bmatrix}\\
-        \begin{bmatrix}
-            -1 & 0 & 1
-        \end{bmatrix}
-        \quad\text{and}\quad
-        \begin{bmatrix}
-            1 \\
-            0 \\
-            -1
-        \end{bmatrix}\quad\text{(centered)}\\
-        D_{P_x}=\begin{bmatrix}
-            -1 & 0 & 1 \\
-            -1 & 0 & 1 \\
-            -1 & 0 & 1
-        \end{bmatrix}
-        \quad\text{and}\quad
-        D_{P_y}=\begin{bmatrix}
-            1  & 1  & 1  \\
-            0  & 0  & 0  \\
-            -1 & -1 & -1
-        \end{bmatrix}\quad\text{(Prewitt)} \\
-        D_{S_x}=
-        \begin{bmatrix}
-            -1 & 0 & 1 \\
-            -2 & 0 & 2 \\
-            -1 & 0 & 1
-        \end{bmatrix}
-        \quad\text{and}\quad
-        D_{S_y}=
-        \begin{bmatrix}
-            1  & 2  & 1  \\
-            0  & 0  & 0  \\
-            -1 & -2 & -1
-        \end{bmatrix}\quad\text{(Sobel)} \\
-        D_+=
-        \begin{bmatrix}
-            0  & 1 \\
-            -1 & 0
-        \end{bmatrix}
-        \quad\text{and}\quad
-        D_-=\begin{bmatrix}
-            1 & 0  \\
-            0 & -1
-        \end{bmatrix}\quad\text{(Roberts)} \\
-    \end{gather*}
+    \begin{tiny}
+        $
+            \begin{bmatrix}
+                -1 & 1
+            \end{bmatrix}
+            \quad\text{and}\quad
+            \begin{bmatrix}
+                1 \\
+                -1
+            \end{bmatrix}$\\
+        $\begin{bmatrix}
+                -1 & 0 & 1
+            \end{bmatrix}
+            \quad\text{and}\quad
+            \begin{bmatrix}
+                1 \\
+                0 \\
+                -1
+            \end{bmatrix}\quad\text{(centered)} $\\
+        $D_{P_x}=\begin{bmatrix}
+                -1 & 0 & 1 \\
+                -1 & 0 & 1 \\
+                -1 & 0 & 1
+            \end{bmatrix}
+            \quad\text{and}\quad
+            D_{P_y}=\begin{bmatrix}
+                1  & 1  & 1  \\
+                0  & 0  & 0  \\
+                -1 & -1 & -1
+            \end{bmatrix}\quad\text{(Prewitt)}$ \\
+        $D_{S_x}=
+            \begin{bmatrix}
+                -1 & 0 & 1 \\
+                -2 & 0 & 2 \\
+                -1 & 0 & 1
+            \end{bmatrix}
+            \quad\text{and}\quad
+            D_{S_y}=
+            \begin{bmatrix}
+                1  & 2  & 1  \\
+                0  & 0  & 0  \\
+                -1 & -2 & -1
+            \end{bmatrix}\quad\text{(Sobel)}$ \\
+        $D_+=
+            \begin{bmatrix}
+                0  & 1 \\
+                -1 & 0
+            \end{bmatrix}
+            \quad\text{and}\quad
+            D_-=\begin{bmatrix}
+                1 & 0  \\
+                0 & -1
+            \end{bmatrix}\quad\text{(Roberts)}$ \\
+    \end{tiny}
     Magnitude of the gradient is
-    \begin{align*}
-        |\mathbf{G}(x,y)| & =[G_x^2+G_y^2]^{1/2} \\
-                          & \approx|G_x|+|G_y|
-    \end{align*}
+    $
+        |\mathbf{G}(x,y)|  =[G_x^2+G_y^2]^{1/2}  \approx|G_x|+|G_y|
+    $
     Direction of gradient (direction of max rate of change) w.r.t. x axis
-    \begin{equation*}
+    $
         \theta(x,y)=\tan^{-1}(G_y/G_x)
-    \end{equation*}
+    $
     \subsection{Laplacian Operator}
-    \begin{equation*}
+    $
         L[f(x,y)]=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}
-    \end{equation*}
+    $
     A Laplacian mask is
-    \begin{equation*}
+    $
         \begin{bmatrix}
             0 & 1  & 0 \\
             1 & -4 & 1 \\
             0 & 1  & 0
         \end{bmatrix}
-    \end{equation*}
+    $
     \subsection{Derivative Theorem of Convolution}
-    \begin{equation*}
+    $
         \frac{d}{dx}f(f*g)=f*\frac{d}{dx}g
-    \end{equation*}
+    $
 
     \section{Segmentation}
     \subsection{Contour Tracking}
@@ -480,25 +469,24 @@
     Magnitude criterion, direction criterion, curvature of segment, closeness to known contour
     \subsection{Global Analysis -- Hough Transform}
     Slope intercept:
-    \begin{equation*}
+    $
         y_i=ax_i+b\to b=-x_ia+y_i
-    \end{equation*}
+    $\\
     Normal:
-    \begin{gather*}
-        x\cos\theta+y\sin\theta=\rho,\quad \qty{-90}{\degree}<\theta\leq\qty{90}{\degree}\\
-        \rho\equiv\sqrt{x_i^2+y_i^2}\cos(\theta-\tan^{-1}(y_i/x_i))\\
-        \rho_i=\sqrt{x_i^2+y_i^2},\quad \theta_i=\tan^{-1}(y_i/x_i)
-    \end{gather*}
-    \subsubsection{Extensions of the Hough Transform}
-    \begin{gather*}
-        (x_i-a_1)^2+(y_i-a_2)^2=r^2\quad\text{(circle, 3D)}\\
-        \frac{(x-x_0)^2}{a^2}+\frac{(y-y_0)^2}{b^2}=1\quad\text{(ellipse, 5D, need orientation $\phi$)}
-    \end{gather*}
+    $
+        x\cos\theta+y\sin\theta=\rho,\quad \qty{-90}{\degree}<\theta\leq\qty{90}{\degree}$\\
+    $\rho\equiv\sqrt{x_i^2+y_i^2}\cos(\theta-\tan^{-1}(y_i/x_i))$\\
+    $ \rho_i=\sqrt{x_i^2+y_i^2},\quad \theta_i=\tan^{-1}(y_i/x_i)$\\
+    Extensions of the Hough Transform:
+    $
+        (x_i-a_1)^2+(y_i-a_2)^2=r^2\quad\text{(circle, 3D)}$\\
+    $  \frac{(x-x_0)^2}{a^2}+\frac{(y-y_0)^2}{b^2}=1\quad\text{(ellipse, 5D, need orientation $\phi$)}
+    $
     \subsection{Adaptive Theresholding}
-    Niblack thresholding, Sauvola thresholding, and Bradley thresholding. Find valley.
-    \subsection{Histogram Smoothing}
-    Replace bin value by average of its neighbors.
-    \subsection{Intermeans Algorithm}
+    Niblack thresholding, Sauvola thresholding, and Bradley thresholding. Find valley.\\
+    Histogram Smoothing:
+    Replace bin value by average of its neighbors.\\
+    Intermeans Algorithm:
     Initial $T$: mean or median of image, partition using T, compute $\mu_1$, $\mu_2$, $T=\frac{1}{2}(\mu_1+\mu_2)$, repeat.
     \subsection{Labeling of Connected Components (Binary)}
     Scan until pixel $p$ for which $V=\{1\}$, examin 4 neighbors already encountered, assign any most popular label or new if none, repeat.\\
@@ -518,28 +506,26 @@
             \end{bmatrix}$
     \end{tiny}:
     Traverse in clockwise direction for every pair of pixels; resample buondary by selecting larger grid spacing; divide into segments of equal length.
-    \subsection{Signatures}
+    Signatures\\
     Distance-angle function:\\
     Centroid estimate from boundary $B=\{(x_i,y_i),\quad i=1,2,\ldots,N\}$:\\
     $\bar{x}=\frac{1}{N}\sum_i x_i$, $\bar{y}=\frac{1}{N}\sum_i y_i$\\
     Slope-density function ($\psi$--$s$):\\
     Tangential orientation $\psi\ (0\leq \psi \leq 2\pi)$ w.r.t. the horizontal, as a function of boundary distance $s$.
-    \subsection{Shape Descriptors}
-    \begin{enumerate}
-        \item Area
-        \item Perimeter: number of boundary pixels, multiply diagonal boundary segments by $\sqrt{2}$\\
-        \item Compactness: $\gamma=\frac{\text{(perimeter)}^2}{4\pi\times(\text{area})}$
-        \item Radial distances
-        \item Boudning box
-        \item Eccentricity: $\varepsilon=\frac{\text{length of major axis}}{\text{length of minor axis}}\ \text{or}\ \frac{\text{maximum radial distance}}{\text{minimum radial distance}}$
-        \item Axis of symmetry
-    \end{enumerate}
-    \subsection{Topological Descriptors}
+    Shape Descriptors
+    Area;
+    Perimeter: number of boundary pixels, multiply diagonal boundary segments by $\sqrt{2}$;
+    Compactness: $\gamma=\frac{\text{(perimeter)}^2}{4\pi\times(\text{area})}$;
+    Radial distances;
+    Boudning box;
+    Eccentricity: $\varepsilon=\frac{\text{length of major axis}}{\text{length of minor axis}}\ \text{or}\ \frac{\text{maximum radial distance}}{\text{minimum radial distance}}$;
+    Axis of symmetry;\\
+    Topological Descriptors\\
     Unaffected by any deformation, as long as no tearing or joining\\
     Euler number: $E=C-H$, connected minus hole, RST invariant
     \subsection{Image moments}
     $m_{pq}=\sum_x \sum_y x^p y^q f(x,y)$, centroids: $\bar{x}=\frac{m_{10}}{m_{00}}\quad \bar{y}=\frac{m_{01}}{m_{00}}$
-    \subsubsection{Properties}
+    Properties\\
     Scaling: ratio of two moments with same $p+q$ invariant\\
     Symmetry: $m_{pq}=0$ for $p$ odd -- symmetric about $y$-axis,
     $m_{pq}=0$ for $q$ odd -- symmetric about $x$-axis,

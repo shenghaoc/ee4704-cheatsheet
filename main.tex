@@ -368,6 +368,98 @@
         H(u,v)=e^{-\omega^2/2\sigma^2}=e^{-\ln 2(\omega/\omega_0)^2}\quad\text{low}
     \end{gather*}
 
+    \section{Edge Detection}
+    \subsection{Gradient Operators}
+    \begin{equation*}
+        \mathbf{G}(x,y)=
+        \begin{bmatrix}
+            \partial f(x,y)/\partial x \\
+            \partial f(x,y)/\partial y
+        \end{bmatrix}=
+        \begin{bmatrix}
+            G_x \\
+            G_y
+        \end{bmatrix}
+    \end{equation*}
+    corrsponding to mask operations
+    \begin{gather*}
+        \begin{bmatrix}
+            -1 & 1
+        \end{bmatrix}
+        \quad\text{and}\quad
+        \begin{bmatrix}
+            1 \\
+            -1
+        \end{bmatrix}\\
+        \begin{bmatrix}
+            -1 & 0 & 1
+        \end{bmatrix}
+        \quad\text{and}\quad
+        \begin{bmatrix}
+            1 \\
+            0 \\
+            -1
+        \end{bmatrix}\quad\text{(centered)}\\
+        D_{P_x}=\begin{bmatrix}
+            -1 & 0 & 1 \\
+            -1 & 0 & 1 \\
+            -1 & 0 & 1
+        \end{bmatrix}
+        \quad\text{and}\quad
+        D_{P_y}=\begin{bmatrix}
+            1  & 1  & 1  \\
+            0  & 0  & 0  \\
+            -1 & -1 & -1
+        \end{bmatrix}\quad\text{(Prewitt)} \\
+        D_{S_x}=
+        \begin{bmatrix}
+            -1 & 0 & 1 \\
+            -2 & 0 & 2 \\
+            -1 & 0 & 1
+        \end{bmatrix}
+        \quad\text{and}\quad
+        D_{S_y}=
+        \begin{bmatrix}
+            1  & 2  & 1  \\
+            0  & 0  & 0  \\
+            -1 & -2 & -1
+        \end{bmatrix}\quad\text{(Sobel)} \\
+        D_+=
+        \begin{bmatrix}
+            0  & 1 \\
+            -1 & 0
+        \end{bmatrix}
+        \quad\text{and}\quad
+        D_-=\begin{bmatrix}
+            1 & 0  \\
+            0 & -1
+        \end{bmatrix}\quad\text{(Roberts)} \\
+    \end{gather*}
+    Magnitude of the gradient is
+    \begin{align*}
+        |\mathbf{G}(x,y)| & =[G_x^2+G_y^2]^{1/2} \\
+                          & \approx|G_x|+|G_y|
+    \end{align*}
+    Direction of gradient (direction of max rate of change) w.r.t. x axis
+    \begin{equation*}
+        \theta(x,y)=\tan^{-1}(G_y/G_x)
+    \end{equation*}
+    \subsection{Laplacian Operator}
+    \begin{equation*}
+        L[f(x,y)]=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}
+    \end{equation*}
+    A Laplacian mask is
+    \begin{equation*}
+        \begin{bmatrix}
+            0 & 1  & 0 \\
+            1 & -4 & 1 \\
+            0 & 1  & 0
+        \end{bmatrix}
+    \end{equation*}
+    \subsection{Derivative Theorem of Convolution}
+    \begin{equation*}
+        \frac{d}{dx}f(f*g)=f*\frac{d}{dx}g
+    \end{equation*}
 \end{multicols}
 
 \end{document}

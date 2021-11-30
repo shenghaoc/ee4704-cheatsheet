@@ -573,6 +573,27 @@
     Region filling: $X_k=(X_{k-1}\oplus B)\cap A^c\quad k=1,2,3,\ldots$, terminate at $X_k=X_{k-1}$.\\
     Extraction of connected components ($Y$): $X_k=(X_{k-1}\oplus B)\cap Y\quad k=1,2,3,\ldots$\\
     Skeletons: $S(A)=\bigcup_{k=0}^K S_k(A)$, with $S_k(A)=(A \ominus kB)-[(A \ominus kB)\circ B]$, $K=\max\{k\vert (A \ominus kB)\neq \emptyset\}$
+
+    \section{Image Compression}
+    Compression ratio: $C_R=\frac{n_1}{n_2}$\\
+    Relative data redundancy: $R_D=1-\frac{1}{C_R}$\\
+    Coding redundancy: $p_r(r_k)=n_k/n, \quad k=0,1,2,3\ldots,L-1$, $\bar{L}=\sum_{k=0}^{L-1}l(r_k)p_r(r_k)$, $MN\bar{L}$ bits to code $M\times N$ image
+    \subsection{Image Compression Systems}
+    Mapper (spatial redundancy, reversible), quantizer (psychovisual redundancies, irreversible, not error free), symbol coder\\
+    Objective fidelity criteria: $\text{SNR}_\text{ms}=\frac{\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}\hat{f}(x,y)^2}{\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}[\hat{f}(x,y)-f(x,y)]^2}$
+    \subsection{Information Theory}
+    $I(E)=\log_r \frac{1}{P(E)}=-\log_r P(E)$\\
+    Entropy: $H(A)=-\sum_{j=1}^J P(A_j)\log P(a_j)$\\
+    For any uniquely decodable code $C$, $H(I)$ is lower bound on average word length $\bar{L}_C$, efficiency $\eta =\frac{H(I)}{\bar{L}_C}$
+    \subsection{Error-Free Compression}
+    Huffman coding: order top-bottom in decreasing probability, merge bottom two, repeat; Two remaining, assign $0$ and $1$, go back to two probabilities before combination, prefix assigned digit, repeat\\
+    Arithmetic coding: Not one-one; Multiply by probability of successive symbol; Check successive range\\
+    Bit-plane coding: polynomials, separate each one of 8 bit into individual plane\\
+    Run-length coding: Black and white, encode length, row length known; Need specify first run or assume white\\
+    Delta compression: Successive differences\\
+    \subsection{Lossy Compression}
+    Error-free seldom more than $3:1$, lossy can be $>30:1$, virtually indistinguishable at lower ratios,
+    principal difference: quantizer block; e.g. lossy predictive coding, optimal quantization, transform coding
 \end{multicols}
 
 \end{document}

@@ -30,6 +30,7 @@
 
 \usepackage{amsmath}
 \usepackage{stix2}
+\usepackage{siunitx}
 
 \usepackage{multicol,multirow}
 \usepackage{ifthen}
@@ -460,6 +461,52 @@
     \begin{equation*}
         \frac{d}{dx}f(f*g)=f*\frac{d}{dx}g
     \end{equation*}
+
+    \section{Segmentation}
+    \subsection{Contour Tracking}
+    \begin{enumerate}
+        \item Search top-bottom, left-right for edge pixel, $N$ (direction w.r.t preceding) set to $1$, directions:
+              \begin{tiny}
+                  $\begin{bmatrix}
+                          6 & 7 & 0 \\
+                          5 &   & 1 \\
+                          4 & 3 & 2
+                      \end{bmatrix}$
+              \end{tiny}
+        \item $M=(N-2)\ \text{modulo}\ 8$
+        \item Update $N=M$ if found, otherwise $M=(M+1)\ \text{modulo}\ 8$
+    \end{enumerate}
+    \subsection{Local Analysis}
+    Magnitude criterion, direction criterion, curvature of segment, closeness to known contour
+    \subsection{Global Analysis -- Hough Transform}
+    Slope intercept:
+    \begin{equation*}
+        y_i=ax_i+b\to b=-x_ia+y_i
+    \end{equation*}
+    Normal:
+    \begin{gather*}
+        x\cos\theta+y\sin\theta=\rho,\quad \qty{-90}{\degree}<\theta\leq\qty{90}{\degree}\\
+        \rho\equiv\sqrt{x_i^2+y_i^2}\cos(\theta-\tan^{-1}(y_i/x_i))\\
+        \rho_i=\sqrt{x_i^2+y_i^2},\quad \theta_i=\tan^{-1}(y_i/x_i)
+    \end{gather*}
+    \subsubsection{Extensions of the Hough Transform}
+    \begin{gather*}
+        (x_i-a_1)^2+(y_i-a_2)^2=r^2\quad\text{(circle, 3D)}\\
+        \frac{(x-x_0)^2}{a^2}+\frac{(y-y_0)^2}{b^2}=1\quad\text{(ellipse, 5D, need orientation $\phi$)}
+    \end{gather*}
+    \subsection{Adaptive Theresholding}
+    Niblack thresholding, Sauvola thresholding, and Bradley thresholding. Find valley.
+    \subsection{Histogram Smoothing}
+    Replace bin value by average of its neighbors.
+    \subsection{Intermeans Algorithm}
+    Initial $T$: mean or median of image, partition using T, compute $\mu_1$, $\mu_2$, $T=\frac{1}{2}(\mu_1+\mu_2)$, repeat.
+    \subsection{Labeling of Connected Components (Binary)}
+    Scan until pixel $p$ for which $V=\{1\}$, examin 4 neighbors already encountered, assign any most popular label or new if none, repeat.\\
+    Note equivalence if multiple most popular.
+    \subsection{Region-Oriented Methods (Grayscale or RGB)}
+    Region growing: assign unassigned neighbors of region that satisfy uniformity predicate
+    Problems: selection of initial seeds, suitable properties, formulation of stopping rule, incomplete segmentation
+    Region Splitting/Merging: split into disjoint quadrants if region does not satisfy predicate, merge adjacent regions that satisfy same predicate
 \end{multicols}
 
 \end{document}

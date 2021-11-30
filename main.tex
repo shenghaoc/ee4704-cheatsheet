@@ -507,6 +507,61 @@
     Region growing: assign unassigned neighbors of region that satisfy uniformity predicate
     Problems: selection of initial seeds, suitable properties, formulation of stopping rule, incomplete segmentation
     Region Splitting/Merging: split into disjoint quadrants if region does not satisfy predicate, merge adjacent regions that satisfy same predicate
+
+    \section{Representation and Description}
+    Chiain code
+    \begin{tiny}
+        $\begin{bmatrix}
+                3 & 2 & 1 \\
+                4 &   & 0 \\
+                5 & 6 & 7
+            \end{bmatrix}$
+    \end{tiny}:
+    Traverse in clockwise direction for every pair of pixels; resample buondary by selecting larger grid spacing; divide into segments of equal length.
+    \subsection{Signatures}
+    Distance-angle function:\\
+    Centroid estimate from boundary $B=\{(x_i,y_i),\quad i=1,2,\ldots,N\}$:\\
+    $\bar{x}=\frac{1}{N}\sum_i x_i$, $\bar{y}=\frac{1}{N}\sum_i y_i$\\
+    Slope-density function ($\psi$--$s$):\\
+    Tangential orientation $\psi\ (0\leq \psi \leq 2\pi)$ w.r.t. the horizontal, as a function of boundary distance $s$.
+    \subsection{Shape Descriptors}
+    \begin{enumerate}
+        \item Area
+        \item Perimeter: number of boundary pixels, multiply diagonal boundary segments by $\sqrt{2}$\\
+        \item Compactness: $\gamma=\frac{\text{(perimeter)}^2}{4\pi\times(\text{area})}$
+        \item Radial distances
+        \item Boudning box
+        \item Eccentricity: $\varepsilon=\frac{\text{length of major axis}}{\text{length of minor axis}}\ \text{or}\ \frac{\text{maximum radial distance}}{\text{minimum radial distance}}$
+        \item Axis of symmetry
+    \end{enumerate}
+    \subsection{Topological Descriptors}
+    Unaffected by any deformation, as long as no tearing or joining\\
+    Euler number: $E=C-H$, connected minus hole, RST invariant
+    \subsection{Image moments}
+    $m_{pq}=\sum_x \sum_y x^p y^q f(x,y)$, centroids: $\bar{x}=\frac{m_{10}}{m_{00}}\quad \bar{y}=\frac{m_{01}}{m_{00}}$
+    \subsubsection{Properties}
+    Scaling: ratio of two moments with same $p+q$ invariant\\
+    Symmetry: $m_{pq}=0$ for $p$ odd -- symmetric about $y$-axis,
+    $m_{pq}=0$ for $q$ odd -- symmetric about $x$-axis,
+    $m_{pq}=0$ for $p+q$ odd -- symmetric about origin
+    \subsubsection{Central moment}
+    Translation invariant: $\mu_{pq}=\iint(x-\bar{x})^p(y-\bar{y})^qf(x,y)dxdy$\\
+    $\mu_{00}=m_{00}$, $\mu_{10}=0$, $\mu_{01}=0$, $\mu_{20}=\sum\sum(x-\bar{x}^2)f(x,y)$,
+    $\mu_{02}=\sum\sum(y-\bar{y}^2)f(x,y)$
+
+    \subsubsection{Normalized Central Moment}
+    Scale and translation invariant: $\eta_{pq}=\frac{\mu_{pq}}{\mu_{00}^\gamma}$, where $\gamma=\frac{p+q}{2}+1\quad \text{for } p+q=2,3,\ldots$
+    \subsubsection{Invariant moment}
+    RST invariant: $\phi_1=\eta_{20}+\eta_{02}$, digital not strictly true for RT
+    \subsection{Texture}
+    Relative smoothness: $R(z)=1-\frac{1}{1+\sigma^2(z)}$, normalized: $R_n(z)=1-\frac{1}{1+[\sigma(z)/(L-1)]^2}$
+    $\mu_3$ is skewness and $\mu_4$ is kurtosis.
+    \subsection{Second-order Gray Level Statistics}
+    Specify displacement $\delta(\Delta x, \Delta y)$, matrix $\mathbf{A}$ element $a_{i,j}$ is number of times gray level pair occur for displacement\\
+    Gray-level co-occurence matrix (GLCM): $\mathbf{C}=\frac{1}{n_p}\mathbf{A}$, estimate of joint probability\\
+    Maximum probability: $D_m=\max(c_{ij})$, element-difference moment of order $k$: $D_{ed,k}\sum_i\sum_j(i-j)^kc_{ij}$,
+    inverse element-difference moment of order $k$: $D_{ied,k}=\sum_i\sum_j c_{ij}$,
+    entropy: $D_e=-\sum_i\sum_j c_{ij} \log_2 c_{ij}$, uniformity: $D_u=\sum_i\sum_j c_{ij}^2$
 \end{multicols}
 
 \end{document}

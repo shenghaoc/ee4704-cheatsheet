@@ -562,6 +562,17 @@
     Maximum probability: $D_m=\max(c_{ij})$, element-difference moment of order $k$: $D_{ed,k}\sum_i\sum_j(i-j)^kc_{ij}$,
     inverse element-difference moment of order $k$: $D_{ied,k}=\sum_i\sum_j c_{ij}$,
     entropy: $D_e=-\sum_i\sum_j c_{ij} \log_2 c_{ij}$, uniformity: $D_u=\sum_i\sum_j c_{ij}^2$
+
+    \section{Morphological Processing}
+    Dilation: $A \oplus B=\{x\vert (\hat{B})_x\cap A \neq \emptyset\}$ \\
+    Erosion: $A \ominus B =\{x\vert (B)_x \subseteq A\}$ \\
+    Opening: $A \circ B = (A \ominus B) \oplus B=\bigcup\{(B)_x\vert(B)_x\subseteq A\}$ \\
+    Closing: $A \bullet B = (A \oplus B) \ominus B = \text{ complement of } \bigcup\{(\hat{B})_x\vert(\hat{B})_x\subseteq A^c\}$ \\
+    Duals: $(A\bullet B)^c=(A^c \circ \hat{B})$\\
+    Boundary extraction: $\beta(A)=A-(A\ominus B)$\\
+    Region filling: $X_k=(X_{k-1}\oplus B)\cap A^c\quad k=1,2,3,\ldots$, terminate at $X_k=X_{k-1}$.\\
+    Extraction of connected components ($Y$): $X_k=(X_{k-1}\oplus B)\cap Y\quad k=1,2,3,\ldots$\\
+    Skeletons: $S(A)=\bigcup_{k=0}^K S_k(A)$, with $S_k(A)=(A \ominus kB)-[(A \ominus kB)\circ B]$, $K=\max\{k\vert (A \ominus kB)\neq \emptyset\}$
 \end{multicols}
 
 \end{document}
